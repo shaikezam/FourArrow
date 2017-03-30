@@ -1,0 +1,37 @@
+.panel-body {
+    background-color: blue;
+}
+.player-turn {
+    text-align: center;
+}
+
+table {
+    text-align: center;
+}
+
+td {
+    border: 0px solid #00f;
+    border-radius: 100%;
+    box-shadow: inset 7px 7px 20px 0px rgba(50, 50, 50, 0.4);
+    opacity: 1;
+    height: 100px;
+    width: 100px;
+    background: #fff
+}
+
+.bottomCell {
+    border: 0px solid #00f;
+    border-radius: 100%;
+    box-shadow: inset 7px 7px 20px 0px rgba(50, 50, 50, 0.4);
+    opacity: 1;
+    height: 100px;
+    width: 100px;
+    background: #fff
+}
+
+.panel-default {
+    width: 700px;
+    margin-left:auto; 
+    margin-right:auto;
+    margin-top: 10px;
+}
