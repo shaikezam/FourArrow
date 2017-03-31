@@ -21,7 +21,12 @@ td {
     width: 70px;
     background: #fff
 }
-
+.p1 {
+    background: yellow;
+}
+.p2 {
+    background: red;
+}
 .panel-default {
     width: 500px;
     margin-left:auto; 

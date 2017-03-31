@@ -1,8 +1,14 @@
-(function(arg1, click, arg3) {
+(function(arg1, click, cellElement) {
+    var playerTurn = function(cell) {
+        if (!cell) {
+            error("cell isn't found");
+            return;
+        }
+        let iRow = parseInt(cell / 10);
+        let iCol = cell % 10;
+        $('[name="' + cell + '"]').addClass("p1");
+    }.bind(this);
     var initBoardGame = function(sPlayer1Name, sPlayer2Name) {
-        $("td").on(click, function(oEvent) {
-            console.log(oEvent.target.getAttribute("name"));
-        }.bind(this))
         this.game = {
             player: [sPlayer1Name, sPlayer2Name],
             gameBoard: {
@@ -16,6 +22,11 @@
             }
         }
     }.bind(this)
-    initBoardGame("A1", "B2")
-    console.log(this.game);
-}(document, "click"))
+    function error(sMessage) {
+        console.error (sMessage);
+    };
+    initBoardGame("A1", "B2");
+    $(cellElement).on(click, function(oEvent) {
+        playerTurn(oEvent.target.getAttribute("name"));
+    }.bind(this));
+}(document, "click", "td"))
