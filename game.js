@@ -1,4 +1,4 @@
-(function(arg1, click, cellElement, headerElementID, p1Class, p2Class) {
+(function (click, cellElement, headerElementID, p1Class, p2Class, sGameEnd) {
 
     var playerTurn = function(cell) {
         if (!cell) {
@@ -68,10 +68,9 @@
     }.bind(this)
 
     var fnEndGame = function(player) {
-        
-
         $(cellElement).off(click, fnClick);
         alert(player + " is the winner!!!");
+        $(headerElementID).html(sGameEnd);
     }
 
     function error(sMessage) {
@@ -86,6 +85,7 @@
     var fnClick = function(oEvent) {
         playerTurn(oEvent.target.getAttribute("name"));
     }.bind(this);
+
     $(cellElement).on(click, fnClick);
 
-}(document, "click", "td", "#header", "p1", "p2"))
+}("click", "td", "#header", "p1", "p2", "Game End"));

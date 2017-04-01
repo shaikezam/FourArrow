@@ -1,5 +1,6 @@
 .panel-body {
     background-color: blue;
+    margin-bottom: 10px;
 }
 .player-turn {
     text-align: center;
