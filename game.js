@@ -69,8 +69,7 @@
 
     var fnEndGame = function(player) {
         $(cellElement).off(click, fnClick);
-        alert(player + " is the winner!!!");
-        $(headerElementID).html(sGameEnd);
+        $(headerElementID).html(player + " is the winner!!!\n" + sGameEnd);
     }
 
     function error(sMessage) {
@@ -88,4 +87,4 @@
 
     $(cellElement).on(click, fnClick);
 
-}("click", "td", "#header", "p1", "p2", "Game End"));
+}("click", "td", "#header", "p1", "p2", "Game over"));
