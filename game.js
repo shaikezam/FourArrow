@@ -1,4 +1,4 @@
-(function (click, cellElement, headerElementID, p1Class, p2Class, sGameEnd) {
+(function(click, cellElement, headerElementID, p1Class, p2Class, sGameEnd) {
 
     var playerTurn = function(cell) {
         if (!cell) {
@@ -69,7 +69,7 @@
 
     var fnEndGame = function(player) {
         $(cellElement).off(click, fnClick);
-        $(headerElementID).html(player + " is the winner!!!\n" + sGameEnd);
+        $(headerElementID).html(player + " is the winner!!! " + sGameEnd);
     }
 
     function error(sMessage) {
