@@ -1,4 +1,4 @@
-(function(click, cellElement, headerElementID, p1Class, p2Class, sGameEnd) {
+var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGameEnd, sPlayer1Name, sPlayer2Name) {
 
     var playerTurn = function(cell) {
         if (!cell) {
@@ -16,7 +16,7 @@
                 let sClassName = (bWhatPlayerIsit) ? p1Class : p2Class;
                 $('[name="' + i + "" + iCol + '"]').addClass(sClassName);
                 game.playerTurn = (bWhatPlayerIsit) ? game.player[1] : game.player[0];
-                $(headerElementID).html(game.playerTurn);
+                $(headerElementID).html(game.playerTurn + " turn");
                 checkForWin(aColumn[i]);
                 return;
             }
@@ -24,7 +24,7 @@
     }.bind(this);
 
     var initBoardGame = function(sPlayer1Name, sPlayer2Name) {
-        $(headerElementID).html(sPlayer1Name);
+        $(headerElementID).html(sPlayer1Name + " turn");
         this.game = {
             player: [sPlayer1Name, sPlayer2Name],
             gameBoard: [
@@ -80,11 +80,26 @@
         console.log(sMessage);
     };
 
-    initBoardGame("P1", "P2");
+    initBoardGame(sPlayer1Name, sPlayer2Name);
     var fnClick = function(oEvent) {
         playerTurn(oEvent.target.getAttribute("name"));
     }.bind(this);
 
     $(cellElement).on(click, fnClick);
 
-}("click", "td", "#header", "p1", "p2", "Game over"));
+};
+
+$(document).ready((oEvent) => {
+    $(".panel-body").hide();
+    $("#start_game").on("click", (oEvent) => {
+        let p1 = $("#p1").val();
+        let p2 = $("#p2").val();
+        if (p1 && p2) {
+            $(".panel-body").show("slow");
+            fnGame("click", "td", "#header", "p1", "p2", "Game over", p1, p2);
+        }
+    });
+    $("#new_game").on("click", (oEvent) => {
+        location.reload();
+    });
+});
