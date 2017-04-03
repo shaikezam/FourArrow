@@ -6,4 +6,4 @@ checkout:
     - git submodule update --init
 test:
   override:
-    - mocha test/test.js
+    - mocha
