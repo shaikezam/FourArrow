@@ -6,7 +6,8 @@ checkout:
     - git submodule update --init
 dependencies:
   post:
-    - qunit ./install-packages
+    - php ./install-packages
 test:
   override:
-    - qunit ./test-suite/test.html --unit-tests
+    - php ./app/run-server.php --daemon
+    - php ./test-suite/run.php --unit-tests
