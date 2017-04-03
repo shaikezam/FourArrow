@@ -6,4 +6,4 @@ checkout:
     - git submodule update --init
 test:
   override:
-    - phpunit test/
+    - phpunit test/EmailTest
