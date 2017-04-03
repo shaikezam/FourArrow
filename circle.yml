@@ -9,4 +9,4 @@ dependencies:
    - npm i qunit
 test:
   override:
-    - qunit -c ./test.js
+    - npm it
