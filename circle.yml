@@ -6,7 +6,7 @@ checkout:
     - git submodule update --init
 dependencies:
   post:
-    - php ./install-packages
+    - sudo apt-get install php5 libapache2-mod-php5 php5-mcrypt
 test:
   override:
     - php ./app/run-server.php --daemon
