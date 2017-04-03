@@ -1,6 +1,8 @@
-var expect = require("chai").expect;
-describe("Hello", function() {
-    it("World", function(done) {
-        expect(true).to.equal(true);
+var assert = require('assert');
+describe('Array', function() {
+    describe('#indexOf()', function() {
+        it('should return -1 when the value is not present', function() {
+            assert.equal(-1, [1, 2, 3].indexOf(4));
+        });
     });
 });
