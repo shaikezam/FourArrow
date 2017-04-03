@@ -4,9 +4,6 @@ checkout:
   post:
     - git submodule sync
     - git submodule update --init
-dependencies:
-  post:
-   -- - sudo apt-get install php5 libapache2-mod-php5 php5-mcrypt
 test:
   override:
-    - open test-suite/test.html
+    ./test-suite/test.html
