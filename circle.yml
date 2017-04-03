@@ -6,8 +6,7 @@ checkout:
     - git submodule update --init
 dependencies:
   post:
-    - sudo apt-get install php5 libapache2-mod-php5 php5-mcrypt
+   -- - sudo apt-get install php5 libapache2-mod-php5 php5-mcrypt
 test:
   override:
-    - php ./app/run-server.php --daemon
-    - php ./test-suite/run.php --unit-tests
+    - open test-suite/test.html
