@@ -2,6 +2,9 @@
     "name": "FourArrow",
     "version": "0.0.1",
     "main": "test/test.js",
+    "scripts": {
+        "test": "mocha ./test/*.js"
+    },
     "dependencies": {
         "mocha": "*"
     }
