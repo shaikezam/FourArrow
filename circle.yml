@@ -1,0 +1,13 @@
+general:
+  build_dir: game
+checkout:
+  post:
+    - git submodule sync
+    - git submodule update --init
+dependencies:
+  post:
+    - php ./install-packages
+test:
+  override:
+    - php ./app/run-server.php --daemon
+    - php ./test-suite/run.php --unit-tests
