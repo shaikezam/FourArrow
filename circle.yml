@@ -9,4 +9,4 @@ dependencies:
    - npm install -g qunitjs
 test:
   override:
-    - qunit
+    - qunit 
