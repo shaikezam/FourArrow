@@ -1,3 +1,5 @@
-QUnit.test( "hello test", function( assert ) {
-  assert.ok( 1 == "1", "Passed!" );
+describe("Hello", function() {
+    it("World", function(done) {
+        true.expect(true, done);
+    });
 });

@@ -6,4 +6,4 @@ checkout:
     - git submodule update --init
 test:
   override:
-    - phpunit --bootstrap test/Email.php test/EmailTest
+    - mocha
