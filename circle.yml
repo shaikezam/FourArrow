@@ -4,6 +4,9 @@ checkout:
   post:
     - git submodule sync
     - git submodule update --init
+dependencies:
+  post:
+   - npm install -g node-qunit-phantomjs
 test:
   override:
-    ./test-suite/test.html
+    - node-qunit-phantomjs /test-suite/tests.html
