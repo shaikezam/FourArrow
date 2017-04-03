@@ -6,7 +6,7 @@ checkout:
     - git submodule update --init
 dependencies:
   post:
-   - npm install -g node-qunit-phantomjs
+   - npm install -g qunitjs
 test:
   override:
-    - node-qunit-phantomjs /test-suite/tests.html
+    - qunit
