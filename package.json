@@ -1,0 +1,11 @@
+{
+    "name": "FourArrow",
+    "version": "0.0.1",
+    "main": "test/game.html",
+    "scripts": {
+        "test": "mocha ./test/*.js"
+    },
+    "dependencies": {
+        "mocha": "*"
+    }
+}
