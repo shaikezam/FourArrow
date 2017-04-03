@@ -1,5 +1,5 @@
 var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGameEnd, sPlayer1Name, sPlayer2Name) {
-
+    console.log(this.game)
     var playerTurn = function(cell) {
         if (!cell) {
             error("cell isn't found");
@@ -25,6 +25,9 @@ var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGa
 
     var initBoardGame = function() {
         $(headerElementID).html(sPlayer1Name + " turn");
+        if (this.game) {
+            this.game = null;
+        }
         this.game = {
             player: [sPlayer1Name, sPlayer2Name],
             gameBoard: [
@@ -84,8 +87,10 @@ var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGa
     var fnClick = function(oEvent) {
         playerTurn(oEvent.target.getAttribute("name"));
     }.bind(this);
-
-    $(cellElement).on(click, fnClick);
+    if (!($(cellElement).data('events'))) {
+        $(cellElement).on(click, fnClick);
+    }
+    
 
 };
 
@@ -102,7 +107,11 @@ $(document).ready((oEvent) => {
         let p2 = $("#p2").val();
         if ((p1 && p2) && (p1 !== p2)) {
             fnClearTable();
-            $(".panel-body").show("slow");
+            let oTable = $(".panel-body");
+            if (!oTable.is(":visible")) {
+                oTable.show("slow");
+            }
+            $("td").off("click");
             fnGame("click", "td", "#header", "p1", "p2", "Game over", p1, p2);
         }
     });
