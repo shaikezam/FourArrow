@@ -23,7 +23,7 @@ var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGa
         }
     }.bind(this);
 
-    var initBoardGame = function(sPlayer1Name, sPlayer2Name) {
+    var initBoardGame = function() {
         $(headerElementID).html(sPlayer1Name + " turn");
         this.game = {
             player: [sPlayer1Name, sPlayer2Name],
@@ -80,7 +80,7 @@ var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGa
         console.log(sMessage);
     };
 
-    initBoardGame(sPlayer1Name, sPlayer2Name);
+    initBoardGame();
     var fnClick = function(oEvent) {
         playerTurn(oEvent.target.getAttribute("name"));
     }.bind(this);
@@ -89,12 +89,19 @@ var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGa
 
 };
 
+function fnClearTable() {
+    $("td").each((index, td) => {
+        $(td).removeClass();
+    })
+};
+
 $(document).ready((oEvent) => {
     $(".panel-body").hide();
     $("#start_game").on("click", (oEvent) => {
         let p1 = $("#p1").val();
         let p2 = $("#p2").val();
-        if (p1 && p2) {
+        if ((p1 && p2) && (p1 !== p2)) {
+            fnClearTable();
             $(".panel-body").show("slow");
             fnGame("click", "td", "#header", "p1", "p2", "Game over", p1, p2);
         }
