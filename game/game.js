@@ -101,6 +101,7 @@ function fnClearTable() {
 };
 
 $(document).ready((oEvent) => {
+    window.temp = '123';
     $(".panel-body").hide();
     $("#start_game").on("click", (oEvent) => {
         let p1 = $("#p1").val();
