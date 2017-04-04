@@ -1,9 +1,13 @@
 general:
-  build_dir: game
+    build_dir: game
 checkout:
-  post:
-    - git submodule sync
-    - git submodule update --init
+    post:
+        - git submodule sync
+        - git submodule update --init
+dependencies:
+    pre:
+        - npm install -g karma-cli bower
+        - bower install
 test:
-  override:
-    - npm test
+    override:
+        - npm test
