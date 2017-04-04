@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "test/game.html",
   "scripts": {
-    "test": "karma start"
+    "test": "karma start --browsers Chrome --single-run"
   },
   "dependencies": {
     "mocha": "3.2.0",
