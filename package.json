@@ -15,6 +15,7 @@
     "karma-ie-launcher": "1.0.0"
   },
   "devDependencies": {
-    "karma-chrome-launcher": "^2.0.0"
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-spec-reporter": "0.0.30"
   }
 }
