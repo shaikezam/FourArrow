@@ -1,11 +1,54 @@
-var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGameEnd, sPlayer1Name, sPlayer2Name) {
-    console.log(this.game)
+'use strict';
+var fnGame = function ( click, cellElement, headerElementID, p1Class, p2Class, sGameEnd, sPlayer1Name, sPlayer2Name ) {
+
+    var fnClick = function(oEvent) {
+        playerTurn(oEvent.target.getAttribute("name"));
+    }.bind(this);
+
+    var fnEndGame = function(player) {
+        $(cellElement).off(click, fnClick);
+        $(headerElementID).html(player + " is the winner!!! " + sGameEnd);
+    };
+
+    function error(sMessage) {
+        console.error(sMessage);
+    };
+
+    function log(sMessage) {
+        console.log(sMessage);
+    };
+
+    var checkForWin = function(player) {
+        let game = this.game;
+        let oGameBoard = game.gameBoard;
+        for (let i = 0; i < oGameBoard.length; i++) {
+            for (let j = 0; j < oGameBoard[i].length; j++) {
+                if (i <= oGameBoard.length - 4 && oGameBoard[i][j] === player && oGameBoard[i + 1][j] === player && oGameBoard[i + 2][j] === player && oGameBoard[i + 3][j] === player) {
+                    log("Winner");
+                    fnEndGame(player);
+                    return;
+                } else if (j <= oGameBoard[i].length - 4 && oGameBoard[i][j] === player && oGameBoard[i][j + 1] === player && oGameBoard[i][j + 2] === player && oGameBoard[i][j + 3] === player) {
+                    log("Winner");
+                    fnEndGame(player);
+                    return;
+                } else if (j <= oGameBoard[i].length - 4 && i <= oGameBoard.length - 4 && oGameBoard[i][j] === player && oGameBoard[i + 1][j + 1] === player && oGameBoard[i + 2][j + 2] === player && oGameBoard[i + 3][j + 3] === player) {
+                    log("Winner");
+                    fnEndGame(player);
+                    return;
+                } else if (i <= oGameBoard.length - 4 && oGameBoard[i][j] === player && oGameBoard[i + 1][j - 1] === player && oGameBoard[i + 2][j - 2] === player && oGameBoard[i + 3][j - 3] === player) {
+                    log("Winner");
+                    fnEndGame(player);
+                    return;
+                }
+            }
+        }
+    }.bind(this);
+
     var playerTurn = function(cell) {
         if (!cell) {
             error("cell isn't found");
             return;
         }
-        let iRow = parseInt(cell / 10);
         let iCol = cell % 10;
         let aColumn = this.game.gameBoard[iCol];
         let game = this.game;
@@ -40,64 +83,22 @@ var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGa
                 [null, null, null, null, null, null]
             ],
             playerTurn: sPlayer1Name
-        }
-    }.bind(this)
-
-    var checkForWin = function(player) {
-        let game = this.game;
-        let oGameBoard = game.gameBoard;
-        let tempCounter = 0;
-        for (let i = 0; i < oGameBoard.length; i++) {
-            for (let j = 0; j < oGameBoard[i].length; j++) {
-                if (i <= oGameBoard.length - 4 && oGameBoard[i][j] === player && oGameBoard[i + 1][j] === player && oGameBoard[i + 2][j] === player && oGameBoard[i + 3][j] === player) {
-                    log("Winner");
-                    fnEndGame(player);
-                    return;
-                } else if (j <= oGameBoard[i].length - 4 && oGameBoard[i][j] === player && oGameBoard[i][j + 1] === player && oGameBoard[i][j + 2] === player && oGameBoard[i][j + 3] === player) {
-                    log("Winner");
-                    fnEndGame(player);
-                    return;
-                } else if (j <= oGameBoard[i].length - 4 && i <= oGameBoard.length - 4 && oGameBoard[i][j] === player && oGameBoard[i + 1][j + 1] === player && oGameBoard[i + 2][j + 2] === player && oGameBoard[i + 3][j + 3] === player) {
-                    log("Winner");
-                    fnEndGame(player);
-                    return;
-                } else if (i <= oGameBoard.length - 4 && oGameBoard[i][j] === player && oGameBoard[i + 1][j - 1] === player && oGameBoard[i + 2][j - 2] === player && oGameBoard[i + 3][j - 3] === player) {
-                    log("Winner");
-                    fnEndGame(player);
-                    return;
-                }
-            }
-        }
-    }.bind(this)
-
-    var fnEndGame = function(player) {
-        $(cellElement).off(click, fnClick);
-        $(headerElementID).html(player + " is the winner!!! " + sGameEnd);
-    }
-
-    function error(sMessage) {
-        console.error(sMessage);
-    };
-
-    function log(sMessage) {
-        console.log(sMessage);
-    };
+        };
+    }.bind(this);
 
     initBoardGame();
-    var fnClick = function(oEvent) {
-        playerTurn(oEvent.target.getAttribute("name"));
-    }.bind(this);
+
     if (!($(cellElement).data('events'))) {
         $(cellElement).on(click, fnClick);
     }
-    
+
 
 };
 
 function fnClearTable() {
     $("td").each((index, td) => {
         $(td).removeClass();
-    })
+    });
 };
 
 $(document).ready((oEvent) => {
