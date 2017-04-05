@@ -12,6 +12,6 @@ test:
     override:
         - npm test
         
-eslint:
+general:
     override:
         - npm eslint
