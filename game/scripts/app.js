@@ -1,8 +1,8 @@
 'use strict';
 
 $.when(
-    $.getScript("../scripts/game.js"),
-    $.getScript("../scripts/player.js")
+    $.getScript("scripts/game.js"),
+    $.getScript("scripts/player.js")
 ).done(function(Game, Player) {
 
     var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGameEnd, sPlayer1Name, sPlayer2Name) {
