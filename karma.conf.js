@@ -15,8 +15,10 @@ module.exports = function(config) {
 
         // list of files / patterns to load in the browser
         files: [
-            'game/*html',
-            'scripts/*js',
+            'game/scripts/player.js',
+            'game/scripts/game.js',
+            'https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js',
+            'game/scripts/app.js',
             'test/*js'
         ],
 
