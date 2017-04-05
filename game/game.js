@@ -68,9 +68,6 @@ var fnGame = function ( click, cellElement, headerElementID, p1Class, p2Class, s
 
     var initBoardGame = function() {
         $(headerElementID).html(sPlayer1Name + " turn");
-        if (this.game) {
-            this.game = null;
-        }
         this.game = {
             player: [sPlayer1Name, sPlayer2Name],
             gameBoard: [
@@ -93,7 +90,7 @@ var fnGame = function ( click, cellElement, headerElementID, p1Class, p2Class, s
     }
 
 
-};
+}.bind(this);
 
 function fnClearTable() {
     $("td").each((index, td) => {
