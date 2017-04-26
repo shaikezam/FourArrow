@@ -1,22 +1,45 @@
 'use strict';
+
 class Player {
-    constructor(name) {
-        this.name = name;
+    constructor(sName) {
+        this.sName = sName;
     }
 
-    doSomething() {
-        console.log("I'm a " + this.name);
+    getName() {
+        return this.sName;
     }
+    
+    setName(sName) {
+        this.sName = sName;
+    }
+    
+}
 
-    toString() {
-        return "Hi";
+class Game {
+    constructor(p1, p2) {
+        this.oPlayer1 = p1;
+        this.oPlayer2 = p2;
+    }
+    
+    getP1() {
+        return this.oPlayer1;
+    }
+    
+    getP2() {
+        return this.oPlayer2;
     }
 }
-let p = new Player();
-console.log(p.toString());
+
+class DataBaseManager {
+    
+    static testStatic() {
+        return "Hello World";
+    }
+    
+}
 
 var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGameEnd, sPlayer1Name, sPlayer2Name) {
-
+    console.log(DataBaseManager.testStatic());
     var fnClick = function(oEvent) {
         playerTurn(oEvent.target.getAttribute("name"));
     }.bind(this);
