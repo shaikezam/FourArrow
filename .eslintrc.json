@@ -4,10 +4,6 @@
         "es6": true,
         "node": true
     },
-    "globals": {
-        "sap": true,
-        "jQuery": true
-    },
     "rules": {
         "semi": ["error", "always"],
         "block-scoped-var": 1,
@@ -20,10 +16,7 @@
         "no-self-compare": 2,
         "no-mixed-spaces-and-tabs": [2, true],
         "no-nested-ternary": 2,
-        "no-unused-vars": [2, {
-            "vars": "all",
-            "args": "none"
-        }],
+        "no-unused-vars": [0],
         "radix": 2,
         "wrap-iife": [2, "any"],
 

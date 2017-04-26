@@ -14,7 +14,7 @@ QUnit.test('Name of Test', function(assert) {
 });
 QUnit.test('Name of Test', function(assert) {
     // Setup the various states of the code you want to test and assert conditions.
-    console.log(window.temp);
+    //console.log(window.temp);
     assert.equal(1, 1, '1 === 1');
     assert.ok(true, 'true is truthy');
     assert.ok(1, '1 is also truthy');
