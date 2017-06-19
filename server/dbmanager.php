@@ -122,8 +122,9 @@ class DBConnection {
     game_id     INT(8) NOT NULL AUTO_INCREMENT,
     p1_name   VARCHAR(30) NOT NULL,
     p2_name   VARCHAR(255) NOT NULL,
-    UNIQUE INDEX user_name_unique (user_name),
-    PRIMARY KEY (user_id)
+    game_duration      INT(10) NOT NULL,
+    UNIQUE INDEX user_name_unique (game_id),
+    PRIMARY KEY (game_id)
 ) Engine=InnoDB');
     }
 
