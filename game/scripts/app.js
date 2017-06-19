@@ -8,11 +8,11 @@ class Player {
     getName() {
         return this.sName;
     }
-    
+
     setName(sName) {
         this.sName = sName;
     }
-    
+
 }
 
 class Game {
@@ -20,33 +20,34 @@ class Game {
         this.oPlayer1 = p1;
         this.oPlayer2 = p2;
     }
-    
+
     getP1() {
         return this.oPlayer1;
     }
-    
+
     getP2() {
         return this.oPlayer2;
     }
 }
 
 class DataBaseManager {
-    
+
     static testStatic() {
-        return "Hello World";
+
     }
-    
+
 }
 
-var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGameEnd, sPlayer1Name, sPlayer2Name) {
-    console.log(DataBaseManager.testStatic());
-    var fnClick = function(oEvent) {
+var fnGame = function (click, cellElement, headerElementID, p1Class, p2Class, sGameEnd, sPlayer1Name, sPlayer2Name) {
+    var fnClick = function (oEvent) {
         playerTurn(oEvent.target.getAttribute("name"));
     }.bind(this);
 
-    var fnEndGame = function(player) {
+    var fnEndGame = function (player) {
         $(cellElement).off(click, fnClick);
         $(headerElementID).html(player + " is the winner!!! " + sGameEnd);
+        window.endGameTime = new Date().getTime();
+        console.log((window.endGameTime - window.startGameTime) / 1000);
     };
 
     function error(sMessage) {
@@ -57,7 +58,7 @@ var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGa
         console.log(sMessage);
     };
 
-    var checkForWin = function(player) {
+    var checkForWin = function (player) {
         let game = this.game;
         let oGameBoard = game.gameBoard;
         for (let i = 0; i < oGameBoard.length; i++) {
@@ -83,7 +84,7 @@ var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGa
         }
     }.bind(this);
 
-    var playerTurn = function(cell) {
+    var playerTurn = function (cell) {
         if (!cell) {
             error("cell isn't found");
             return;
@@ -105,7 +106,7 @@ var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGa
         }
     }.bind(this);
 
-    var initBoardGame = function() {
+    var initBoardGame = function () {
         $(headerElementID).html(sPlayer1Name + " turn");
         this.game = {
             player: [sPlayer1Name, sPlayer2Name],
@@ -138,20 +139,33 @@ function fnClearTable() {
 };
 
 $(document).ready((oEvent) => {
-    window.temp = '123';
     $(".panel-body").hide();
     $("#start_game").on("click", (oEvent) => {
         let p1 = $("#p1").val();
         let p2 = $("#p2").val();
-        if ((p1 && p2) && (p1 !== p2)) {
+        let p1Pass = $("#p1-pass").val();
+        let p2Pass = $("#p2-pass").val();
+        $.post("../server/sign_players.php", {
+            p1: p1,
+            p1Pass: p1Pass,
+            p2: p2,
+            p2Pass: p2Pass
+        }, function (result) {
+            result = JSON.parse(result);
             fnClearTable();
             let oTable = $(".panel-body");
-            if (!oTable.is(":visible")) {
-                oTable.show("slow");
+            if (result.status === 'ERROR') {
+                alert(result.message);
+                oTable.hide();
+            } else {
+                if (!oTable.is(":visible")) {
+                    oTable.show("slow");
+                }
+                window.startGameTime = new Date().getTime();
+                $("td").off("click");
+                fnGame("click", "td", "#header", "p1", "p2", "Game over", p1, p2);  
             }
-            $("td").off("click");
-            fnGame("click", "td", "#header", "p1", "p2", "Game over", p1, p2);
-        }
+        });
     });
     $("#new_game").on("click", (oEvent) => {
         location.reload();

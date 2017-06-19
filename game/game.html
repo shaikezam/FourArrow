@@ -72,16 +72,26 @@
                     </tr>
                 </table>
             </div>
-            <div class="form-group">
-                <label for="p1">1st player name:</label>
-                <input type="text" class="form-control" id="p1">
+            <div class="form-group my-forum">
+                <div class="col-sm-6">
+                    <label for="p1">1st player name:</label>
+                    <input type="text" class="form-control" id="p1" placeholder="5 character player name">
+                    <label for="p1-pass">1st player password:</label>
+                    <input type="password" class="form-control" id="p1-pass" placeholder="5 character password">
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="p2">2nd player name:</label>
+                    <input type="text" class="form-control" id="p2" placeholder="5 character player name">
+                    <label for="p2-pass">2nd player password:</label>
+                    <input type="password" class="form-control" id="p2-pass" placeholder="5 character password">
+                </div>
             </div>
-            <div class="form-group">
-                <label for="p2">2nd player name:</label>
-                <input type="text" class="form-control" id="p2">
-            </div>
-            <button type="button" id="new_game" class="btn btn-default">New Game</button>
-            <button type="button" id="start_game" class="btn btn-default">Start Game</button>
+            <button type="button" id="new_game" class="btn btn-default my-button">New Game</button>
+            <button type="button" id="start_game" class="btn btn-default my-button">Start Game</button><br>
+            <button type="button" id="top5" class="btn btn-default my-button">Top 5 players</button>
+            <button type="button" id="fastets_game" class="btn btn-default my-button">Fastest game</button>
+            <button type="button" id="all_games" class="btn btn-default my-button">All games</button>
             <br>
             <a href="https://github.com/shaikezam/FourArrow" target="_blank">
                 <img src="../assets/github.svg" alt="some_text" class="img_github">
