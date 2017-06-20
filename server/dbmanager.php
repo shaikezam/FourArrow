@@ -120,9 +120,8 @@ class DBConnection {
         
         self::_executeQuery('CREATE TABLE games (
     game_id     INT(8) NOT NULL AUTO_INCREMENT,
-    p1_name   VARCHAR(30) NOT NULL,
-    p2_name   VARCHAR(255) NOT NULL,
-    game_duration      INT(10) NOT NULL,
+    winner_name   VARCHAR(30) NOT NULL,
+    game_duration      float(10,5) NOT NULL,
     UNIQUE INDEX user_name_unique (game_id),
     PRIMARY KEY (game_id)
 ) Engine=InnoDB');

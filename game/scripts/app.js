@@ -1,53 +1,27 @@
 'use strict';
 
-class Player {
-    constructor(sName) {
-        this.sName = sName;
-    }
-
-    getName() {
-        return this.sName;
-    }
-
-    setName(sName) {
-        this.sName = sName;
-    }
-
-}
-
-class Game {
-    constructor(p1, p2) {
-        this.oPlayer1 = p1;
-        this.oPlayer2 = p2;
-    }
-
-    getP1() {
-        return this.oPlayer1;
-    }
-
-    getP2() {
-        return this.oPlayer2;
-    }
-}
-
-class DataBaseManager {
-
-    static testStatic() {
-
-    }
-
-}
-
-var fnGame = function (click, cellElement, headerElementID, p1Class, p2Class, sGameEnd, sPlayer1Name, sPlayer2Name) {
-    var fnClick = function (oEvent) {
+var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGameEnd, sPlayer1Name, sPlayer2Name) {
+    var fnClick = function(oEvent) {
         playerTurn(oEvent.target.getAttribute("name"));
     }.bind(this);
 
-    var fnEndGame = function (player) {
-        $(cellElement).off(click, fnClick);
-        $(headerElementID).html(player + " is the winner!!! " + sGameEnd);
+    var fnEndGame = function(player) {
+        //$(cellElement).off(click, fnClick);
+        //$(headerElementID).html(player + " is the winner!!! " + sGameEnd);
         window.endGameTime = new Date().getTime();
-        console.log((window.endGameTime - window.startGameTime) / 1000);
+        $.post("../server/end_game.php", {
+            winner: player,
+            duration: ((window.endGameTime - window.startGameTime) / 1000)
+        }, function(result) {
+            result = JSON.parse(result);
+            let oTable = $(".panel-body");
+            if (result.status === 'ERROR') {
+                alert(result.message);
+            } else {
+                $(cellElement).off(click, fnClick);
+                $(headerElementID).html(result.winner + " is the winner!!!<br>Game duration = " + result.duration + '<br>' + sGameEnd);
+            }
+        });
     };
 
     function error(sMessage) {
@@ -58,7 +32,7 @@ var fnGame = function (click, cellElement, headerElementID, p1Class, p2Class, sG
         console.log(sMessage);
     };
 
-    var checkForWin = function (player) {
+    var checkForWin = function(player) {
         let game = this.game;
         let oGameBoard = game.gameBoard;
         for (let i = 0; i < oGameBoard.length; i++) {
@@ -84,7 +58,7 @@ var fnGame = function (click, cellElement, headerElementID, p1Class, p2Class, sG
         }
     }.bind(this);
 
-    var playerTurn = function (cell) {
+    var playerTurn = function(cell) {
         if (!cell) {
             error("cell isn't found");
             return;
@@ -106,7 +80,7 @@ var fnGame = function (click, cellElement, headerElementID, p1Class, p2Class, sG
         }
     }.bind(this);
 
-    var initBoardGame = function () {
+    var initBoardGame = function() {
         $(headerElementID).html(sPlayer1Name + " turn");
         this.game = {
             player: [sPlayer1Name, sPlayer2Name],
@@ -138,6 +112,16 @@ function fnClearTable() {
     });
 };
 
+function updateModal(sTitle, sContent) {
+    $('.modal-title').html(sTitle);
+    $('.modal-body').html(sContent);
+    $('#my-modal').modal('show');
+    $('#submit-button').on('click', function(oEvent) {
+        $('.modal-title').html('');
+        $('.modal-body').empty();
+    }.bind(this));
+}
+
 $(document).ready((oEvent) => {
     $(".panel-body").hide();
     $("#start_game").on("click", (oEvent) => {
@@ -150,12 +134,12 @@ $(document).ready((oEvent) => {
             p1Pass: p1Pass,
             p2: p2,
             p2Pass: p2Pass
-        }, function (result) {
+        }, function(result) {
             result = JSON.parse(result);
             fnClearTable();
             let oTable = $(".panel-body");
             if (result.status === 'ERROR') {
-                alert(result.message);
+                updateModal(result.status, result.message);
                 oTable.hide();
             } else {
                 if (!oTable.is(":visible")) {
@@ -163,11 +147,50 @@ $(document).ready((oEvent) => {
                 }
                 window.startGameTime = new Date().getTime();
                 $("td").off("click");
-                fnGame("click", "td", "#header", "p1", "p2", "Game over", p1, p2);  
+                fnGame("click", "td", "#header", "p1", "p2", "Game over", p1, p2);
             }
         });
     });
     $("#new_game").on("click", (oEvent) => {
         location.reload();
+    });
+    $("#top5").on("click", (oEvent) => {
+        $.get("../server/top_5.php", function(result) {
+            result = JSON.parse(result);
+            fnClearTable();
+            let oTable = $(".panel-body");
+            if (result.status === 'ERROR') {
+                updateModal(result.status, result.message);
+                oTable.hide();
+            } else {
+                updateModal('Top 5', result.message);
+            }
+        });
+    });
+    $("#fastets_game").on("click", (oEvent) => {
+        $.get("../server/fastets_game.php", function(result) {
+            result = JSON.parse(result);
+            fnClearTable();
+            let oTable = $(".panel-body");
+            if (result.status === 'ERROR') {
+                updateModal(result.status, result.message);
+                oTable.hide();
+            } else {
+                updateModal('Fastest game', result.message);
+            }
+        });
+    });
+    $("#all_games").on("click", (oEvent) => {
+        $.get("../server/all_game.php", function(result) {
+            result = JSON.parse(result);
+            fnClearTable();
+            let oTable = $(".panel-body");
+            if (result.status === 'ERROR') {
+                updateModal(result.status, result.message);
+                oTable.hide();
+            } else {
+                updateModal('All games', result.message);
+            }
+        });
     });
 });
