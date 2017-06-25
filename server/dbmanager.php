@@ -90,7 +90,7 @@ class DBConnection {
         }
         $result = mysqli_query(self::$connectionString, $sql);
         if (!$result) // error in query
-            echo 'Invalid query: ' . mysqli_error(); //sending error message
+            echo 'Invalid query: ' . mysqli_error(self::getDBConnection()); //sending error message
         $numResults = mysqli_num_rows($result);
         if ($numResults == 0) {
             return false;

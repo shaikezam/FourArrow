@@ -1,31 +1,16 @@
 <?php
 include 'dbmanager.php';
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $res = DBConnection::_executeSelectQuery("SELECT * FROM games order by duration");
-    if ($res === true) {
-        $res = DBConnection::_executeQuery('UPDATE users set wins  = (wins + 1) where user_name = "' . $winner_name . '"');
-        if ($res === true) {
-            $obj = array(
-                "status" => "SUCESS",
-                "winner" => $winner_name,
-                "duration" => $game_duration
-            );
-            echo json_encode($obj);
-        } else {
-            $obj = array(
-                "status" => "ERROR",
-                "message" => $res
-            );
-            echo json_encode($obj);
-        }
-        
-    } else {
-        $obj = array(
-            "status" => "ERROR",
-            "message" => $res
-        );
-        echo json_encode($obj);
+    $res = DBConnection::_executeSelectQuery("SELECT * FROM games order by game_duration limit 1");
+    while ($row = mysqli_fetch_array($res)) { //send back result
+        $player   = $row['winner_name'];
+        $duration = $row['game_duration'];
     }
+    $obj = array(
+        "status" => "SUCCESS",
+        "message" => "The fastest game ame playerd by " . $player . ", and was " . $duration
+    );
+    echo json_encode($obj);
+    return;
 }
-//echo DBConnection::_executeQuery('drop database fourarrow');
 ?>

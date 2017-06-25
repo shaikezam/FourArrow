@@ -157,7 +157,6 @@ $(document).ready((oEvent) => {
     $("#top5").on("click", (oEvent) => {
         $.get("../server/top_5.php", function(result) {
             result = JSON.parse(result);
-            fnClearTable();
             let oTable = $(".panel-body");
             if (result.status === 'ERROR') {
                 updateModal(result.status, result.message);
@@ -170,7 +169,6 @@ $(document).ready((oEvent) => {
     $("#fastets_game").on("click", (oEvent) => {
         $.get("../server/fastets_game.php", function(result) {
             result = JSON.parse(result);
-            fnClearTable();
             let oTable = $(".panel-body");
             if (result.status === 'ERROR') {
                 updateModal(result.status, result.message);
@@ -181,9 +179,8 @@ $(document).ready((oEvent) => {
         });
     });
     $("#all_games").on("click", (oEvent) => {
-        $.get("../server/all_game.php", function(result) {
+        $.get("../server/all_games.php", function(result) {
             result = JSON.parse(result);
-            fnClearTable();
             let oTable = $(".panel-body");
             if (result.status === 'ERROR') {
                 updateModal(result.status, result.message);
