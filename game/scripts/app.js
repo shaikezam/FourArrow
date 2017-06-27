@@ -1,4 +1,5 @@
 'use strict';
+window.server = sinon.fakeServer.create();
 
 var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGameEnd, sPlayer1Name, sPlayer2Name) {
     var fnClick = function(oEvent) {
@@ -149,6 +150,8 @@ $("#start_game").on("click", (oEvent) => {
             fnGame("click", "td", "#header", "p1", "p2", "Game over", p1, p2);
         }
     });
+    console.log("LOL");
+    //window.server.requests[0].respond(200, {'Content-Type': 'text/javascript'}, 'var foobar = 1;');
 });
 $("#new_game").on("click", (oEvent) => {
     location.reload();

@@ -33,6 +33,8 @@ function test(preem) {
     Then(mySteps.iCannSeeGameBoard, [6]);
     preem.start();
 };
+
+
 $(document).ready((oEvent) => {
     $('iframe').on('load', (function() {
         test(new Preem());

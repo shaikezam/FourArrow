@@ -5,8 +5,8 @@ class Preem {
             instance = this;
             this._options = oOptions;
             this.setQueue();
+            this.preemTestedApp = $('iframe')[0];
         }
-
         return instance;
     }
     static getInstance() {
@@ -94,6 +94,7 @@ class Preem {
     startNetworkManager(oParameters) {
         this._initNetworkManager(oParameters);
         $.get(this.netWorkManager.configuration.file, this._playNetworkManager).fail(this._recordNetworkManager);
+        
     }
     stopNetworkManager() {
         let sString = JSON.stringify(this.netWorkManager.recordedData, null, 4);
@@ -110,34 +111,29 @@ class Preem {
     }
     _playNetworkManager(data) {
         Preem.getInstance().netWorkManager.recordedData = data;
-        let preemTestedApp = $('iframe')[0];
-        var origOpen = preemTestedApp.contentWindow.XMLHttpRequest.prototype.open;
-        var call = Preem.getInstance().netWorkManager.recordedData[0];
-        preemTestedApp.contentWindow.XMLHttpRequest.prototype.open = function(method, url) {
-            $(this).on('readystatechange', function(oEvent) {
-                console.log(this.readyState);
-            });
-            $(this).on('load', function(oEvent) {
-                console.log(this);
-            });
-            $(this.upload).on('loadend', function(oEvent) {
-                console.log(this);
-            });
 
-            if (!url === call.url) {
-                return;
+        var origOpen = Preem.getInstance().preemTestedApp.contentWindow.XMLHttpRequest.prototype.open;
+        var call = Preem.getInstance().netWorkManager.recordedData[0];
+        Preem.getInstance().preemTestedApp.contentWindow.XMLHttpRequest.prototype.open = function(method, url) {
+            this.onreadystatechange = function() {
+                console.log("LOL");
+                if (this.readyState === 4 || this.readyState === 3) {
+                    Preem.getInstance().preemTestedApp.contentWindow.server.requests[0].respond(200, {'Content-Type': 'text/javascript'}, 'var foobar = 1;');
+                }
             }
-            Preem.getInstance().netWorkManager.recordedData.shift();
+            this.onload = function() {
+                console.log("LOL");
+                if (this.readyState === 4 || this.readyState === 3) {
+                    Preem.getInstance().preemTestedApp.contentWindow.server.requests[0].respond(200, {'Content-Type': 'text/javascript'}, 'var foobar = 1;');
+                }
+            }
             origOpen.apply(this, arguments);
+            //Preem.getInstance().netWorkManager.recordedData.shift();
         };
-        preemTestedApp.contentWindow.XMLHttpRequest.prototype.send = function(method, url) {
-            //this.abort();
-            this.send(null);
-        }
+
     }
     _recordNetworkManager(data) {
-        let preemTestedApp = $('iframe')[0];
-        let origOpen = preemTestedApp.contentWindow.XMLHttpRequest.prototype.open;
+        let origOpen = this.preemTestedApp.contentWindow.XMLHttpRequest.prototype.open;
         preemTestedApp.contentWindow.XMLHttpRequest.prototype.open = function(method, url) {
             this.method = method;
             this.url = url;
