@@ -1,0 +1,10 @@
+[
+    {
+        "url": "../server/sign_players.php",
+        "method": "POST",
+        "readyState": 4,
+        "responseText": "{\"status\":\"SUCCESS\",\"message\":\"Start the game\"}",
+        "status": 200,
+        "responseURL": "http://localhost:8080/fourarrow/server/sign_players.php"
+    }
+]

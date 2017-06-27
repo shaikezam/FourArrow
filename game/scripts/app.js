@@ -122,72 +122,70 @@ function updateModal(sTitle, sContent) {
     }.bind(this));
 }
 
-$(document).ready((oEvent) => {
-    $(".panel-body").hide();
-    $("#start_game").on("click", (oEvent) => {
-        let p1 = $("#p1").val();
-        let p2 = $("#p2").val();
-        let p1Pass = $("#p1-pass").val();
-        let p2Pass = $("#p2-pass").val();
-        $.post("../server/sign_players.php", {
-            p1: p1,
-            p1Pass: p1Pass,
-            p2: p2,
-            p2Pass: p2Pass
-        }, function(result) {
-            result = JSON.parse(result);
-            fnClearTable();
-            let oTable = $(".panel-body");
-            if (result.status === 'ERROR') {
-                updateModal(result.status, result.message);
-                oTable.hide();
-            } else {
-                if (!oTable.is(":visible")) {
-                    oTable.show("slow");
-                }
-                window.startGameTime = new Date().getTime();
-                $("td").off("click");
-                fnGame("click", "td", "#header", "p1", "p2", "Game over", p1, p2);
+$(".panel-body").hide();
+$("#start_game").on("click", (oEvent) => {
+    let p1 = $("#p1").val();
+    let p2 = $("#p2").val();
+    let p1Pass = $("#p1-pass").val();
+    let p2Pass = $("#p2-pass").val();
+    $.post("../server/sign_players.php", {
+        p1: p1,
+        p1Pass: p1Pass,
+        p2: p2,
+        p2Pass: p2Pass
+    }, function(result) {
+        result = JSON.parse(result);
+        fnClearTable();
+        let oTable = $(".panel-body");
+        if (result.status === 'ERROR') {
+            updateModal(result.status, result.message);
+            oTable.hide();
+        } else {
+            if (!oTable.is(":visible")) {
+                oTable.show("slow");
             }
-        });
+            window.startGameTime = new Date().getTime();
+            $("td").off("click");
+            fnGame("click", "td", "#header", "p1", "p2", "Game over", p1, p2);
+        }
     });
-    $("#new_game").on("click", (oEvent) => {
-        location.reload();
+});
+$("#new_game").on("click", (oEvent) => {
+    location.reload();
+});
+$("#top5").on("click", (oEvent) => {
+    $.get("../server/top_5.php", function(result) {
+        result = JSON.parse(result);
+        let oTable = $(".panel-body");
+        if (result.status === 'ERROR') {
+            updateModal(result.status, result.message);
+            oTable.hide();
+        } else {
+            updateModal('Top 5', result.message);
+        }
     });
-    $("#top5").on("click", (oEvent) => {
-        $.get("../server/top_5.php", function(result) {
-            result = JSON.parse(result);
-            let oTable = $(".panel-body");
-            if (result.status === 'ERROR') {
-                updateModal(result.status, result.message);
-                oTable.hide();
-            } else {
-                updateModal('Top 5', result.message);
-            }
-        });
+});
+$("#fastets_game").on("click", (oEvent) => {
+    $.get("../server/fastets_game.php", function(result) {
+        result = JSON.parse(result);
+        let oTable = $(".panel-body");
+        if (result.status === 'ERROR') {
+            updateModal(result.status, result.message);
+            oTable.hide();
+        } else {
+            updateModal('Fastest game', result.message);
+        }
     });
-    $("#fastets_game").on("click", (oEvent) => {
-        $.get("../server/fastets_game.php", function(result) {
-            result = JSON.parse(result);
-            let oTable = $(".panel-body");
-            if (result.status === 'ERROR') {
-                updateModal(result.status, result.message);
-                oTable.hide();
-            } else {
-                updateModal('Fastest game', result.message);
-            }
-        });
-    });
-    $("#all_games").on("click", (oEvent) => {
-        $.get("../server/all_games.php", function(result) {
-            result = JSON.parse(result);
-            let oTable = $(".panel-body");
-            if (result.status === 'ERROR') {
-                updateModal(result.status, result.message);
-                oTable.hide();
-            } else {
-                updateModal('All games', result.message);
-            }
-        });
+});
+$("#all_games").on("click", (oEvent) => {
+    $.get("../server/all_games.php", function(result) {
+        result = JSON.parse(result);
+        let oTable = $(".panel-body");
+        if (result.status === 'ERROR') {
+            updateModal(result.status, result.message);
+            oTable.hide();
+        } else {
+            updateModal('All games', result.message);
+        }
     });
 });
