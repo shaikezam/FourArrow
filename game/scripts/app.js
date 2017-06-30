@@ -1,5 +1,5 @@
 'use strict';
-window.server = sinon.fakeServer.create();
+window._server = sinon.fakeServer.create();
 
 var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGameEnd, sPlayer1Name, sPlayer2Name) {
     var fnClick = function(oEvent) {

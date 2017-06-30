@@ -1,26 +1,22 @@
 function test(preem) {
     let mySteps = {
-        iPutText: function(sIdentify, sValue) {
+        iPutText: function (sIdentify, sValue) {
             $('iframe').contents().find(sIdentify).val(sValue);
             return true;
         },
-        iPressButton: function(sIdentify) {
+        iPressButton: function (sIdentify) {
             $('iframe').contents().find(sIdentify).trigger("click");
             return true;
         },
-        iCheckTextInInput: function(sIdentify, sValue) {
+        iCheckTextInInput: function (sIdentify, sValue) {
             return $('iframe').contents().find(sIdentify).val() === sValue;
         },
-        iCannSeeGameBoard: function(iRows) {
+        iCannSeeGameBoard: function (iRows) {
             let aTR = $('iframe').contents().find('tr');
             let oIsTableVisible = $('iframe').contents().find('table').is(":visible");
             return aTR.length === iRows && oIsTableVisible;
         }
     };
-    preem.startNetworkManager({
-        file: './data/data.json',
-        entriesUrlFilter: [new RegExp(".php")]
-    });
     When(mySteps.iPutText, ['#p1', 'ShayZambrovski']);
     Then(mySteps.iCheckTextInInput, ['#p1', 'ShayZambrovski']);
     When(mySteps.iPutText, ['#p2', 'MaayanDagan']);
@@ -36,7 +32,8 @@ function test(preem) {
 
 
 $(document).ready((oEvent) => {
-    $('iframe').on('load', (function() {
-        test(new Preem());
+    test(new Preem({
+        file: './data/data.json',
+        entriesUrlFilter: [new RegExp(".php")]
     }));
 });
