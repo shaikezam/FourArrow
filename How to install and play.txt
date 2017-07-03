@@ -1,3 +1,4 @@
 1. Install xampp (Apache & mysql) --> https://www.apachefriends.org/download.html
 2. After install it, open the xampp control panel and start the apache and the mysql.
 3. Open browser and open http://localhost:80/fourarrow/game/game.html and start to play.
+GIT HUB: https://github.com/shaikezam/FourArrow
