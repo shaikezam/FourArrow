@@ -1,19 +1,18 @@
 'use strict';
-window._server = sinon.fakeServer.create();
 
-var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGameEnd, sPlayer1Name, sPlayer2Name) {
-    var fnClick = function(oEvent) {
+var fnGame = function (click, cellElement, headerElementID, p1Class, p2Class, sGameEnd, sPlayer1Name, sPlayer2Name) {
+    var fnClick = function (oEvent) {
         playerTurn(oEvent.target.getAttribute("name"));
     }.bind(this);
 
-    var fnEndGame = function(player) {
+    var fnEndGame = function (player) {
         //$(cellElement).off(click, fnClick);
         //$(headerElementID).html(player + " is the winner!!! " + sGameEnd);
         window.endGameTime = new Date().getTime();
         $.post("../server/end_game.php", {
             winner: player,
             duration: ((window.endGameTime - window.startGameTime) / 1000)
-        }, function(result) {
+        }, function (result) {
             result = JSON.parse(result);
             let oTable = $(".panel-body");
             if (result.status === 'ERROR') {
@@ -33,7 +32,7 @@ var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGa
         console.log(sMessage);
     };
 
-    var checkForWin = function(player) {
+    var checkForWin = function (player) {
         let game = this.game;
         let oGameBoard = game.gameBoard;
         for (let i = 0; i < oGameBoard.length; i++) {
@@ -59,7 +58,7 @@ var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGa
         }
     }.bind(this);
 
-    var playerTurn = function(cell) {
+    var playerTurn = function (cell) {
         if (!cell) {
             error("cell isn't found");
             return;
@@ -81,7 +80,7 @@ var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGa
         }
     }.bind(this);
 
-    var initBoardGame = function() {
+    var initBoardGame = function () {
         $(headerElementID).html(sPlayer1Name + " turn");
         this.game = {
             player: [sPlayer1Name, sPlayer2Name],
@@ -103,8 +102,8 @@ var fnGame = function(click, cellElement, headerElementID, p1Class, p2Class, sGa
     if (!($(cellElement).data('events'))) {
         $(cellElement).on(click, fnClick);
     }
-
-
+    this.playerTurn = playerTurn;
+    return this;
 }.bind(this);
 
 function fnClearTable() {
@@ -117,7 +116,7 @@ function updateModal(sTitle, sContent) {
     $('.modal-title').html(sTitle);
     $('.modal-body').html(sContent);
     $('#my-modal').modal('show');
-    $('#submit-button').on('click', function(oEvent) {
+    $('#submit-button').on('click', function (oEvent) {
         $('.modal-title').html('');
         $('.modal-body').empty();
     }.bind(this));
@@ -134,7 +133,7 @@ $("#start_game").on("click", (oEvent) => {
         p1Pass: p1Pass,
         p2: p2,
         p2Pass: p2Pass
-    }, function(result) {
+    }, function (result) {
         result = JSON.parse(result);
         fnClearTable();
         let oTable = $(".panel-body");
@@ -150,14 +149,13 @@ $("#start_game").on("click", (oEvent) => {
             fnGame("click", "td", "#header", "p1", "p2", "Game over", p1, p2);
         }
     });
-    console.log("LOL");
     //window.server.requests[0].respond(200, {'Content-Type': 'text/javascript'}, 'var foobar = 1;');
 });
 $("#new_game").on("click", (oEvent) => {
     location.reload();
 });
 $("#top5").on("click", (oEvent) => {
-    $.get("../server/top_5.php", function(result) {
+    $.get("../server/top_5.php", function (result) {
         result = JSON.parse(result);
         let oTable = $(".panel-body");
         if (result.status === 'ERROR') {
@@ -169,7 +167,7 @@ $("#top5").on("click", (oEvent) => {
     });
 });
 $("#fastets_game").on("click", (oEvent) => {
-    $.get("../server/fastets_game.php", function(result) {
+    $.get("../server/fastets_game.php", function (result) {
         result = JSON.parse(result);
         let oTable = $(".panel-body");
         if (result.status === 'ERROR') {
@@ -181,7 +179,7 @@ $("#fastets_game").on("click", (oEvent) => {
     });
 });
 $("#all_games").on("click", (oEvent) => {
-    $.get("../server/all_games.php", function(result) {
+    $.get("../server/all_games.php", function (result) {
         result = JSON.parse(result);
         let oTable = $(".panel-body");
         if (result.status === 'ERROR') {
@@ -192,3 +190,4 @@ $("#all_games").on("click", (oEvent) => {
         }
     });
 });
+var app = this;
