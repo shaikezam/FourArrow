@@ -1,0 +1,11 @@
+[{
+        "url": "../server/sign_players.php",
+        "method": "POST",
+        "response": "{\"status\":\"SUCCESS\",\"message\":\"Start the game\"}",
+        "status": 200
+    }, {
+        "url": "../server/end_game.php",
+        "method": "POST",
+        "response": "{\"status\":\"SUCESS\",\"winner\":\"Player1\",\"duration\":\"1.586\"}",
+        "status": 200
+    }]
