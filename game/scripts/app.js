@@ -122,7 +122,7 @@ function updateModal(sTitle, sContent) {
     }.bind(this));
 }
 
-$(".panel-body").hide();
+$("#game-panel").hide();
 $("#start_game").on("click", (oEvent) => {
     let p1 = $("#p1").val();
     let p2 = $("#p2").val();
@@ -136,7 +136,7 @@ $("#start_game").on("click", (oEvent) => {
     }, function (result) {
         result = JSON.parse(result);
         fnClearTable();
-        let oTable = $(".panel-body");
+        let oTable = $("#game-panel");
         if (result.status === 'ERROR') {
             updateModal(result.status, result.message);
             oTable.hide();

@@ -1,11 +1,1 @@
-[{
-        "url": "../server/sign_players.php",
-        "method": "POST",
-        "response": "{\"status\":\"SUCCESS\",\"message\":\"Start the game\"}",
-        "status": 200
-    }, {
-        "url": "../server/end_game.php",
-        "method": "POST",
-        "response": "{\"status\":\"SUCESS\",\"winner\":\"Player1\",\"duration\":\"1.586\"}",
-        "status": 200
-    }]
+[{"url":"../server/sign_players.php","method":"POST","response":"{\"status\":\"SUCCESS\",\"message\":\"Start the game\"}","status":200},{"url":"../server/end_game.php","method":"POST","response":"{\"status\":\"SUCESS\",\"winner\":\"Player1\",\"duration\":\"1.584\"}","status":200},{"url":"../server/fastets_game.php","method":"GET","response":"{\"status\":\"SUCCESS\",\"message\":\"The fastest game ame playerd by Player1, and was 1.44500\"}","status":200},{"url":"../server/top_5.php","method":"GET","response":"{\"status\":\"SUCCESS\",\"message\":\"<table class=\\\"table table table-striped\\\"><thead><tr><th>User name<\\/th><th>Wins<\\/th><\\/tr><\\/thead><tbody><tr><td>Player1<\\/td><td>18<\\/td><\\/tr><tr><td>Player2<\\/td><td>0<\\/td><\\/tr><\\/tbody><\\/table>\"}","status":200},{"url":"../server/all_games.php","method":"GET","response":"{\"status\":\"SUCCESS\",\"message\":\"<table class=\\\"table table table-striped\\\"><thead><tr><th>Game id<\\/th><th>Winner<\\/th><th>Game duration<\\/th><\\/tr><\\/thead><tbody><tr><td>1<\\/td><td>Player1<\\/td><td>1.44500<\\/td><\\/tr><tr><td>2<\\/td><td>Player1<\\/td><td>1.58700<\\/td><\\/tr><tr><td>3<\\/td><td>Player1<\\/td><td>4.41200<\\/td><\\/tr><tr><td>4<\\/td><td>Player1<\\/td><td>4.40900<\\/td><\\/tr><tr><td>5<\\/td><td>Player1<\\/td><td>11.12800<\\/td><\\/tr><tr><td>6<\\/td><td>Player1<\\/td><td>2.72600<\\/td><\\/tr><tr><td>7<\\/td><td>Player1<\\/td><td>1.61300<\\/td><\\/tr><tr><td>8<\\/td><td>Player1<\\/td><td>1.59300<\\/td><\\/tr><tr><td>9<\\/td><td>Player1<\\/td><td>1.61500<\\/td><\\/tr><tr><td>10<\\/td><td>Player1<\\/td><td>1.60200<\\/td><\\/tr><tr><td>11<\\/td><td>Player1<\\/td><td>1.62400<\\/td><\\/tr><tr><td>12<\\/td><td>Player1<\\/td><td>1.60600<\\/td><\\/tr><tr><td>13<\\/td><td>Player1<\\/td><td>1.61700<\\/td><\\/tr><tr><td>14<\\/td><td>Player1<\\/td><td>1.60900<\\/td><\\/tr><tr><td>15<\\/td><td>Player1<\\/td><td>1.93300<\\/td><\\/tr><tr><td>16<\\/td><td>Player1<\\/td><td>1.60800<\\/td><\\/tr><tr><td>17<\\/td><td>Player1<\\/td><td>1.60100<\\/td><\\/tr><tr><td>18<\\/td><td>Player1<\\/td><td>1.58400<\\/td><\\/tr><\\/tbody><\\/table>\"}","status":200}]
